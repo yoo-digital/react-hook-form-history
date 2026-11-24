@@ -1,6 +1,6 @@
 {
   "name": "@yoo-digital/rhf-history",
-  "version": "0.0.0",
+  "version": "0.0.1-canary.0",
   "description": "Undo/redo for react-hook-form that scales to thousands of fields.",
   "keywords": [
     "react-hook-form",
