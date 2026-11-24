@@ -1,0 +1,68 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions: {}
+
+# The build runs tsdown and all devDependency code, so it gets no secrets and a read-only token.
+# The privileged release job only installs without lifecycle scripts, downloads the prebuilt
+# dist and publishes it (the package has no `prepack`, so publishing never rebuilds).
+#
+# Publishing uses npm trusted publishing (OIDC via `id-token: write`); there is no npm token.
+# Locked in .github/workflows/actions.lock: rerun `gh actions-lock` after editing any `uses:`.
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      # pnpm from `packageManager`, Node.js from .nvmrc, then `pnpm install --frozen-lockfile`.
+      - uses: pnpm/setup@v3.2.0
+        with:
+          cache: true
+          require-lockfile: true
+      - run: pnpm build
+      - uses: actions/upload-artifact@v7.0.2
+        with:
+          name: dist
+          path: packages/*/dist
+          if-no-files-found: error
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v7.0.1
+        with:
+          persist-credentials: false
+      # No store cache here: the privileged job doesn't restore what other workflow runs wrote.
+      - uses: pnpm/setup@v3.2.0
+        with:
+          install: false
+      - run: pnpm install --frozen-lockfile --ignore-scripts
+      - uses: actions/download-artifact@v8.0.2
+        with:
+          name: dist
+          # The upload's root is packages/ (the common ancestor of packages/*/dist), so this
+          # puts each dist back into its own package.
+          path: packages
+      - uses: changesets/action@v2.1.2
+        with:
+          version-script: pnpm version-packages
+          publish-script: pnpm release
+          pr-title: Version packages
+          commit-message: Version packages
+          github-token: ${{ secrets.GITHUB_TOKEN }}

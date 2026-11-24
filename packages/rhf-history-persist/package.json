@@ -1,0 +1,107 @@
+{
+  "name": "@yoo-digital/rhf-history-persist",
+  "version": "0.0.0",
+  "description": "Draft persistence for @yoo-digital/rhf-history: save form values and undo history across reloads, with an IndexedDB adapter and draft recovery.",
+  "keywords": [
+    "react-hook-form",
+    "undo",
+    "history",
+    "draft",
+    "autosave",
+    "indexeddb",
+    "persistence",
+    "react",
+    "forms"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "YOO AG",
+    "email": "info@yoo.digital",
+    "url": "https://www.yoo.digital/"
+  },
+  "contributors": [
+    {
+      "name": "Tobias Maier",
+      "email": "tobias.maier@yoo.digital"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yoo-digital/react-hook-form-history.git",
+    "directory": "packages/rhf-history-persist"
+  },
+  "homepage": "https://github.com/yoo-digital/react-hook-form-history/tree/main/packages/rhf-history-persist#readme",
+  "bugs": "https://github.com/yoo-digital/react-hook-form-history/issues",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": {
+      "@yoo-digital/source": "./src/index.ts",
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./indexeddb": {
+      "@yoo-digital/source": "./src/indexeddb.ts",
+      "types": "./dist/indexeddb.d.ts",
+      "import": "./dist/indexeddb.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true,
+    "exports": {
+      ".": {
+        "types": "./dist/index.d.ts",
+        "import": "./dist/index.js"
+      },
+      "./indexeddb": {
+        "types": "./dist/indexeddb.d.ts",
+        "import": "./dist/indexeddb.js"
+      },
+      "./package.json": "./package.json"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsdown",
+    "typecheck": "tsc --noEmit",
+    "lint": "oxlint",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "bench": "vitest bench --run",
+    "check:pkg": "pnpm run build && publint --strict --pack pnpm && T=$(mktemp -d) && pnpm pack --pack-destination \"$T\" >/dev/null && attw \"$T\"/*.tgz --profile esm-only",
+    "prepublishOnly": "test -f dist/index.js || (echo 'dist/ is missing: run pnpm build before publishing' >&2 && exit 1)"
+  },
+  "peerDependencies": {
+    "@yoo-digital/rhf-history": "workspace:^",
+    "react": ">=18",
+    "react-hook-form": "^7.55.0"
+  },
+  "devDependencies": {
+    "@arethetypeswrong/cli": "^0.18.5",
+    "@hookform/resolvers": "^7.0.7",
+    "@testing-library/jest-dom": "^8.0.0",
+    "@testing-library/react": "^16.3.3",
+    "@testing-library/user-event": "^14.6.13",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@yoo-digital/rhf-history": "workspace:*",
+    "fake-indexeddb": "^6.2.8",
+    "jsdom": "^29.1.1",
+    "publint": "^0.3.25",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-hook-form": "^7.92.0",
+    "tsdown": "^0.23.7",
+    "typescript": "~7.0.2",
+    "valibot": "^1.5.0",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1"
+  }
+}

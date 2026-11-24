@@ -1,0 +1,11 @@
+{
+  "$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
+  "changelog": ["@changesets/changelog-github", { "repo": "yoo-digital/react-hook-form-history" }],
+  "commit": false,
+  "fixed": [["@yoo-digital/rhf-history", "@yoo-digital/rhf-history-persist"]],
+  "linked": [],
+  "access": "public",
+  "baseBranch": "main",
+  "updateInternalDependencies": "patch",
+  "ignore": ["react-vite"]
+}

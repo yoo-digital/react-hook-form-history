@@ -1,0 +1,48 @@
+{
+  "name": "rhf-history-monorepo",
+  "description": "Monorepo for @yoo-digital/rhf-history (undo/redo for react-hook-form) and @yoo-digital/rhf-history-persist (draft persistence).",
+  "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yoo-digital/react-hook-form-history.git"
+  },
+  "author": {
+    "name": "YOO AG",
+    "email": "info@yoo.digital",
+    "url": "https://www.yoo.digital/"
+  },
+  "contributors": [
+    {
+      "name": "Tobias Maier",
+      "email": "tobias.maier@yoo.digital"
+    }
+  ],
+  "type": "module",
+  "packageManager": "pnpm@12.23.0",
+  "scripts": {
+    "dev": "pnpm -F react-vite dev",
+    "build": "pnpm -r build",
+    "typecheck": "pnpm -r typecheck",
+    "lint": "oxlint",
+    "format": "oxfmt",
+    "format:check": "oxfmt --check",
+    "test:run": "pnpm -r test:run",
+    "bench": "pnpm -r bench",
+    "e2e": "pnpm -F e2e test",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^1.0.1",
+    "@changesets/cli": "^3.0.3",
+    "@yoo-digital/oxfmt-config": "~0.1.0",
+    "@yoo-digital/oxlint-config-react": "~0.1.0",
+    "@yoo-digital/oxlint-config-vitest": "~0.1.0",
+    "oxfmt": "^0.79.0",
+    "oxlint": "^1.94.0",
+    "oxlint-tsgolint": "^7.0.2008",
+    "typescript": "~7.0.2"
+  }
+}
