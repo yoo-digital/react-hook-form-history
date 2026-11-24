@@ -1,6 +1,6 @@
 {
   "name": "@yoo-digital/rhf-history-persist",
-  "version": "0.0.0",
+  "version": "0.0.1-canary.0",
   "description": "Draft persistence for @yoo-digital/rhf-history: save form values and undo history across reloads, with an IndexedDB adapter and draft recovery.",
   "keywords": [
     "react-hook-form",
